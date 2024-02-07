@@ -1,7 +1,7 @@
 const User = require('./User');
 const Character = require('./Character');
 const Enemy = require('./Enemy');
-
+let apples;
 
 User.hasOne(Character, {});
 
