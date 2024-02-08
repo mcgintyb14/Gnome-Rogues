@@ -10,4 +10,10 @@ User.hasOne(Character, {});
 
 Character.belongsTo(User, {});
 
+Hand.hasMany(Card, {});
+
+Deck.hasMany(Card, {});
+
+
+
 module.exports = { User, Character, Enemies, Gnome, Card, Hand, Deck };

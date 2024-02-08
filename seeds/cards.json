@@ -78,31 +78,31 @@
         "Dodge": 12
     },
     {
-        "id": 12,
+        "id": 14,
         "name": "Toothpaste hold",
         "Damage": 0,
         "Dodge": 8
     },
     {
-        "id": 13,
+        "id": 15,
         "name": "Set Toaster Fire",
         "Damage": 8,
         "Dodge": 8
     },
     {
-        "id": 14,
+        "id": 16,
         "name": "Explosive Cayenne Pepper Bomb",
         "Damage": 15,
         "Dodge": 0
     },
     {
-        "id": 15,
+        "id": 17,
         "name": "Lego Mines",
         "Damage": 12,
         "Dodge": 0
     },
     {
-        "id": 16,
+        "id": 18,
         "name": "Cunning Escape",
         "Damage": 0,
         "Dodge": 20

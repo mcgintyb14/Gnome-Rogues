@@ -5,6 +5,7 @@ const enemiesData = require('./Enemies.json');
 const userData = require('./User.json');
 const handData = require('./Hand,json');
 const deckData = require('./Deck.json');
+const characterData = require('./character.json');
 const { User, Character, Enemies, Gnome, Card, Hand, Deck } = require('../models');
 
 const seedDatabase = async () => {
@@ -30,7 +31,7 @@ const seedDatabase = async () => {
      returning: true
   });
 
-  await Character.bulkCreate(cardsData, {
+  await Character.bulkCreate(characterData, {
     individualHooks: true,
      returning: true
   });

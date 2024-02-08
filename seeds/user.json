@@ -1,12 +1,12 @@
 [
     {
-        "id": "UUID4",
+        "id": 1,
         "email": "brendan.mcginty14@gmail.com",
         "username": "GnomePapi69",
         "password": "yellowdog123"
     },
     {
-        "id": "UUID4",
+        "id": 2,
         "email": "mandy93142@gmail.com",
         "username": "gnomemami69",
         "password": "yellowcat123"
