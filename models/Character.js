@@ -5,16 +5,19 @@ class Character extends Model {}
 
 Character.init(
     {
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'User',
-                key: 'id',
-            }
-        },
+       
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'User',  
+                key: 'id',
+            }
         },
         name: {
             type: DataTypes.STRING,
@@ -22,12 +25,26 @@ Character.init(
             unique: true
         },
         class_id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
-                model: 'classes',
+                model: 'classes',  
                 key: 'id',
             }
-        } 
-        //add deckid?? or should this go to class?
-    }  
-)
+        },
+        current_hp: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
+        // deck_id?
+    },
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'character',
+    }
+);
+
+module.exports = Character;
