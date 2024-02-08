@@ -25,4 +25,6 @@ Hand.init(
             }
         }
     }
-)
+);
+
+module.exports = Hand

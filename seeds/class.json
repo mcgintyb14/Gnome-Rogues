@@ -1,0 +1,29 @@
+[
+    {
+        "class_id": 1,
+        "class_name": "Lawn Gnome",
+        "MaxHP": 100,
+        "Strength": 50,
+        "Agility": 50,
+        "Image": "",
+        "Type": "Trickster"
+    },
+    {
+        "class_id": 2,
+        "class_name": "Rock Gnome",
+        "MaxHP": 140,
+        "Strength": 75,
+        "Agility": 25,
+        "Image": "",
+        "Type": "Alchemist"   
+    },
+    {
+        "class_id": 3,
+        "class_name": "Garden Gnome",
+        "MaxHP": 100,
+        "Strength": 25,
+        "Agility": 75,
+        "Image": "",
+        "Type": "Thief"
+    }
+]

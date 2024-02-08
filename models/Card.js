@@ -10,6 +10,10 @@ Card.init(
             allowNull: false,
             primaryKey: true,
         },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         damage: {
             type: DataTypes.INTEGER
         },
