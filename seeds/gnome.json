@@ -5,8 +5,9 @@
         "MaxHP": 100,
         "Strength": 50,
         "Agility": 50,
-        "Image": "",
-        "Type": "Trickster"
+        "Image": "./images/Lawn-Gnome.jpg",
+        "Type": "Trickster",
+        "card_ids": [1, 2, 3, 4, 14, 15, 16, 17, 18]
     },
     {
         "class_id": 2,
@@ -14,8 +15,9 @@
         "MaxHP": 140,
         "Strength": 75,
         "Agility": 25,
-        "Image": "",
-        "Type": "Alchemist"   
+        "Image": "./images/Rock-Gnome.jpg",
+        "Type": "Alchemist",
+        "card_ids": [1, 2, 3, 4, 9, 10, 11, 12, 13]
     },
     {
         "class_id": 3,
@@ -23,7 +25,8 @@
         "MaxHP": 100,
         "Strength": 25,
         "Agility": 75,
-        "Image": "",
-        "Type": "Thief"
+        "Image": "./images/Garden-Gnome.jpg",
+        "Type": "Thief",
+        "card_ids": [1, 2, 3, 4, 5, 6, 7, 8]
     }
 ]
