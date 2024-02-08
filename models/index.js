@@ -1,9 +1,13 @@
 const User = require('./User');
 const Character = require('./Character');
-const Enemy = require('./Enemy');
+const Enemies = require('./Enemies');
+const Gnome = require('./classes/Gnome');
+const Card = require('./Card');
+const Hand = require('./Hand');
+const Deck = require('./Deck');
 
 User.hasOne(Character, {});
 
 Character.belongsTo(User, {});
 
-module.exports = { User, Character };
+module.exports = { User, Character, Enemies, Gnome, Card, Hand, Deck };

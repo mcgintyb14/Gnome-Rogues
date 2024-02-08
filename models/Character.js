@@ -28,15 +28,14 @@ Character.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'classes',  
+                model: 'gnome',  
                 key: 'id',
             }
         },
         current_hp: {
             type: DataTypes.INTEGER,
-            allowNull: false
-        }
-        // deck_id?
+            allowNull: false,
+        },
     },
     {
         sequelize,

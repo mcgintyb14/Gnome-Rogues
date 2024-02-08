@@ -8,7 +8,7 @@ Gnome.init(
         class_id: {
             type: Datatypes.INTEGER,
             primaryKey: true
-        }
+        },
         // We will need to pull this data from a form in the front end (using list input)
         class_name: {
             type: DataTypes.STRING,
@@ -22,6 +22,14 @@ Gnome.init(
         },
         Agility: {
             type: DataTypes.INTEGER,
+        },
+        Image: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        Type: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     },
     {
@@ -29,8 +37,8 @@ Gnome.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'user',
+        modelName: 'gnome',
       }
 )
 
-module.exports = { Gnome }
+module.exports = Gnome
