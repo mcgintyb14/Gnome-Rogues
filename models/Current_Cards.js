@@ -1,29 +1,33 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Cards extends Model {}
+class Current_Cards extends Model {}
 
 // Each of the values below would represent individual cards, which will be seeded as hard coded data into this model 
 
-Cards.init(
+Current_Cards.init(
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false
         },
-        move_name: {
+        character_id: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'Character',
+                key: 'id'
+            }
         },
-        damage: {
+        card_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: 'Cards',
+                key: 'id'
+            }
         },
-        block: {
-            type: DataTypes.INTEGER
-        }
-
     },
     {
         sequelize,
@@ -34,7 +38,4 @@ Cards.init(
       }
 )
 
-module.exports = { Cards }
-
-//cardId - primary key
-//deckID (deck will be through table to class)
+module.exports = { Current_Cards }

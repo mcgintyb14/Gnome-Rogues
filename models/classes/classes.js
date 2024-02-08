@@ -1,32 +1,36 @@
-// const { Model, DataTypes } = require('sequelize');
-// const sequelize = require('../config/connection');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-// class Gnome extends Model {}
+class Gnome extends Model {}
 
-// Gnome.init(
-//     {
-//         class_id: {
-//             type: Datatypes.INTEGER,
-//             references: {
-//                 model: 'classes',
-//                 key: 'id',
-//             }
-//         }
-//         class: {
-//             type: DataTypes.STRING,
-//             allowNull: false,
-//         },
-//         MaxHP: {
-//             type: DataTypes.INTEGER,
-//         },
-//         CurrentHP: {
-//             type: DataTypes.INTEGER,
-//         },
-//         Strength: {
-//             type: DataTypes.INTEGER,
-//         }
-//         Agility: {
-//             type: DataTypes.INTEGER,
-//         }
-//     }
-// )
+Gnome.init(
+    {
+        class_id: {
+            type: Datatypes.INTEGER,
+            primaryKey: true
+        }
+        // We will need to pull this data from a form in the front end (using list input)
+        class_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        MaxHP: {
+            type: DataTypes.INTEGER,
+        },
+        Strength: {
+            type: DataTypes.INTEGER,
+        },
+        Agility: {
+            type: DataTypes.INTEGER,
+        }
+    },
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'user',
+      }
+)
+
+module.exports = { Gnome }
