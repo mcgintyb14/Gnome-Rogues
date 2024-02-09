@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const sequelize = require('../../config/connection');
 
 class Gnome extends Model {}
 
 Gnome.init(
     {
-        class_id: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true
         },

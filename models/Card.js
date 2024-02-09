@@ -20,6 +20,13 @@ Card.init(
         dodge: {
             type: DataTypes.INTEGER
         }
+    },
+    {
+    sequelize, // Moved inside the object
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'card',
     }
 )
 
