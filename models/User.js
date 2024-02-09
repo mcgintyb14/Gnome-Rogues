@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const bcrypt = require('bcrypt');
 
 class User extends Model {}
 
@@ -9,10 +10,11 @@ User.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
-            //need to assign a UUID
+            autoIncrement: true
+            // You may also want to add autoIncrement if this is your primary key
         },
         email: {
-            type: DataTypes.email,
+            type: DataTypes.STRING, // Changed from email to STRING
             allowNull: false,
             unique: true,
             validate: {
@@ -28,7 +30,6 @@ User.init(
             allowNull: false,
             validate: {
                 len: [10],
-
             },
         },
     },
@@ -38,15 +39,13 @@ User.init(
               newUserData.password = await bcrypt.hash(newUserData.password, 10);
               return newUserData;
             },
-          },
-    },
-    {
-        sequelize,
+        },
+        sequelize, // Moved inside the object
         timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: 'user',
-      }
+    }
 );
 
 module.exports = User;
