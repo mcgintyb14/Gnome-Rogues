@@ -1,0 +1,29 @@
+{{#extend "main"}}
+
+{{#content "body"}}
+<main class="game-interface">
+    <div class="character-container">
+        <img src="{{character.image}}" alt="Character Image" class="character-image">
+        <h2>{{character.name}}</h2>
+        <p>HP: {{character.hp}}</p>
+    </div>
+
+    <div class="enemies-container">
+        <img src="{{enemies.Image}}" alt="Enemy Image" class="enemies-image">
+        <h2>{{enemies.name}}</h2>
+        <p>HP: {{enemies.hp}}</p>
+    </div>
+
+    <div class="cards-container">
+        {{#each cards}}
+            <div class="card">
+                <h3>{{this.name}}</h3>
+                <p>{{this.effect}}</p>
+            </div>
+        {{/each}}
+    </div>
+</main>
+
+{{/content}}
+
+{{/extend}}
