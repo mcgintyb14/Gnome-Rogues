@@ -52,7 +52,7 @@ router.post('/character-and-cards', async (req, res) => {
   try {
     // Find the Gnome data based on the selected class_id
     const gnomeData = await Gnome.findByPk(req.body.class_id);
-
+    console.log(gnomeData);
     // If the gnomeData is found, create a new Character
     if (gnomeData) {
       // Create a new Character
