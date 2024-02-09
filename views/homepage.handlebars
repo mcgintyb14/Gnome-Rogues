@@ -1,11 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {{gnomeData.}}
-</body>
-</html>
+{{#extend "main"}}
+
+{{#content "body"}}
+<main>
+    <h1>Choose Your Gnome Class</h1>
+    <div class="gnome-classes-container">
+        {{#each gnomes}}
+        <div class="gnome-class-card">
+            <img src="{{this.Image}}" alt="{{this.class_name}}" class="gnome-class-image">
+            <h2 class="gnome-class-name">{{this.class_name}}</h2>
+            <div class="gnome-class-attributes">
+                <p>Max HP: {{this.MaxHP}}</p>
+                <p>Strength: {{this.Strength}}</p>
+                <p>Agility: {{this.Agility}}</p>
+                <p>Type: {{this.Type}}</p>
+            </div>
+            <button class="choose-class-button" onclick="location.href='/game?class_id={{this.id}}'">Choose {{this.class_name}}</button>
+        </div>
+        {{/each}}
+    </div>
+</main>
+
+{{/content}}
+
+{{/extend}}
+
