@@ -6,7 +6,7 @@ class Gnome extends Model {}
 Gnome.init(
     {
         class_id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             primaryKey: true
         },
         // We will need to pull this data from a form in the front end (using list input)
