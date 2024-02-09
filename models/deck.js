@@ -10,20 +10,26 @@ Deck.init(
             primaryKey: true,
         },
         class_id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             references: {
-                model: 'classes',
+                model: 'gnome',
                 key: 'id',
             }
         },
         card_id: {
-            type: Datatypes.INTEGER,
+            type: DataTypes.INTEGER,
             references: {
                 model: 'cards',
                 key: 'id',
             }
         }
-
+    },
+    {
+        sequelize, // Moved inside the object
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'deck',
     }
 )
 

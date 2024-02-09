@@ -5,7 +5,7 @@ class Gnome extends Model {}
 
 Gnome.init(
     {
-        class_id: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true
         },
