@@ -5,23 +5,23 @@
     <h1>Choose Your Gnome Class</h1>
     <div class="gnome-classes-container">
         {{#each gnomes as |gnome|}}
-        <div class="gnome-class-card">
-            <img src="{{gnome.Image}}" alt="{{gnome.class_name}}" class="gnome-class-image">
-            <h2 class="gnome-class-name">{{gnome.class_name}}</h2>
-            <div class="gnome-class-attributes">
-                <p>Max HP: {{gnome.MaxHP}}</p>
-                <p>Strength: {{gnome.Strength}}</p>
-                <p>Agility: {{gnome.Agility}}</p>
-                <p>Type: {{gnome.Type}}</p>
-            </div>
-            <button class="choose-class-button" onclick="location.href='/game?class_id={{gnome.id}}'">Choose {{gnome.class_name}}</button>
-        </div>
-        {{/each}}
+            <button class="choose-class-button"
+                onclick="location.href='/game?class_id={{gnome.id}}'">
+                <div class="gnome-class-card">
+                    <img src="{{gnome.Image}}" alt="{{gnome.class_name}}"
+                        class="gnome-class-image">
+                    <h2 class="gnome-class-name">{{gnome.class_name}}</h2>
+                    <div class="gnome-class-attributes">
+                        <p>Max HP: {{gnome.MaxHP}}</p>
+                        <p>Strength: {{gnome.Strength}}</p>
+                        <p>Agility: {{gnome.Agility}}</p>
+                        <p>Type: {{gnome.Type}}</p>
+                    </div>
+                </button>
+            {{/each}}
     </div>
 </main>
 
+    {{!-- {{/content}} --}}
 
-{{!-- {{/content}} --}}
-
-{{!-- {{/extend}} --}}
-
+    {{!-- {{/extend}} --}}
