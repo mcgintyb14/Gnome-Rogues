@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
     // Pass serialized data (all gnome data) to the homepage to render; the homepage handlebars will need to have  placeholders for three different cards (potentially a #each loop to loop through all 3)
     // And the homepage handlebars file will also have placeholders within the card element for the keys in the Gnome model (all will be used)
     // Cards will display the name of the class, image, attributes, and available special moves (possibly)
-    res.render('homepage', gnome);
+    console.log(gnome);
+    res.render('homepage', { gnomes: gnome });
   } catch (err) {
     res.status(500).json(err);
   }

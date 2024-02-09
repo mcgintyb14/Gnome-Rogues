@@ -7,7 +7,8 @@ Gnome.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         // We will need to pull this data from a form in the front end (using list input)
         class_name: {
