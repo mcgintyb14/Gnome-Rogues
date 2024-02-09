@@ -14,27 +14,22 @@ const seedDatabase = async () => {
     // console.log('Connection to the database has been established successfully.');
     await sequelize.sync({ force: true });
 
+    await Enemies.bulkCreate(enemiesData, {
+      individualHooks: true,
+       returning: true
+    });
+
+    await Gnome.bulkCreate(gnomeData, {
+      individualHooks: true,
+      returning: true,
+    });
+
     await User.bulkCreate(userData, {
       individualHooks: true,
        returning: true
     });
 
-  await Gnome.bulkCreate(gnomeData, {
-    individualHooks: true,
-    returning: true,
-  });
-
   await Card.bulkCreate(cardData, {
-    individualHooks: true,
-     returning: true
-  });
-
-  await Enemies.bulkCreate(enemiesData, {
-    individualHooks: true,
-     returning: true
-  });
-  
-  await Character.bulkCreate(characterData, {
     individualHooks: true,
      returning: true
   });
@@ -44,6 +39,11 @@ const seedDatabase = async () => {
      returning: true
   });
   
+  await Character.bulkCreate(characterData, {
+    individualHooks: true,
+     returning: true
+  });
+
   await Hand.bulkCreate(handData, {
     individualHooks: true,
      returning: true

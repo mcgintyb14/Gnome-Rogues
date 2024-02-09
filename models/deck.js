@@ -19,7 +19,7 @@ Deck.init(
         card_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'cards',
+                model: 'card',
                 key: 'id',
             }
         }
