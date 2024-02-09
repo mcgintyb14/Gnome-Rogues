@@ -41,33 +41,48 @@ router.post('/account', async (req, res) => {
   }
 });
 
-router.post('/character', async (req, res) => {
+// The below post route is for posting a new character to the Character db, as well as making a new hand and adding it to the hand id (matching character id from the character model).
+// ...This first pulls class data from the Gnome db matching what the user selected, then populates the body of the post request with data from the relevant class in the Gnome model
+// ... (see attributes being set equal to Gnome data)
+// After that, this includes a similar check on the newly created "characterData", and uses it to also create a new hand based on the newly created character. Note this hand currently
+// Takes the card_ids specified for that class in the Gnome model
+
+router.post('/character-and-cards', async (req, res) => {
   try {
     // Find the Gnome data based on the selected class_id
     const gnomeData = await Gnome.findByPk(req.body.class_id);
 
     // If the gnomeData is found, create a new Character
     if (gnomeData) {
+      // Create a new Character
       const characterData = await Character.create({
         name: req.body.name,
-        class_id: req.body.class_id, // This should be the selected class_id
- 	// Map these attributes from gnomeData to the Character model
+        class_id: req.body.class_id,
         strength: gnomeData.strength,
         agility: gnomeData.agility,
         current_hp: 100 // Assuming initial HP is 100
       });
 
-      res.status(201).json(characterData);
+      // If characterData is created successfully, proceed to create a new Hand
+      if (characterData) {
+        const handData = await Hand.create({
+          class_id: req.body.class_id,
+          card_ids: gnomeData.card_ids,
+          character_id: characterData.id // Assign the character_id to the Hand
+        });
+
+        res.status(201).json({ characterData, handData });
+      } else {
+        res.status(500).json({ error: 'Failed to create character' });
+      }
     } else {
-      res.status(404).json({ error: 'Data not found for the selected class' });
+      res.status(404).json({ error: 'Gnome data not found for the selected class_id' });
     }
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
   }
 });
-
-
 
 
 module.exports = router;
