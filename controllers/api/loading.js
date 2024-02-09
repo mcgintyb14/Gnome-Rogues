@@ -3,7 +3,6 @@ const { Character, Hand } = require('../../models');
 
 router.get('/loading', async (req, res) => {
     try {
-
         const handData = await Hand.findByPk(req.session.characterId);
 
         const characterData = await Character.findByPk(req.session.characterId);

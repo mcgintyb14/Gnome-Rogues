@@ -1,7 +1,4 @@
-[
-    {
-        "id": 1,
-        "character_id": 1,
-        "card_id": 
-    }
-]
+{
+    "character_id": 1,
+    "card_id": [1, 2, 3, 4, 5]
+}
