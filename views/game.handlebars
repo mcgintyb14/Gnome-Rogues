@@ -1,6 +1,3 @@
-{{!-- {{#extend "main"}} --}}
-
-{{!-- {{#content "body"}} --}}
 <main class="game-interface">
     <div class="character-container">
         <img src="{{character.image}}" alt="Character Image" class="character-image">
@@ -17,13 +14,11 @@
     <div class="cards-container">
         {{#each cards}}
             <div class="card">
-                <h3>{{this.name}}</h3>
-                <p>{{this.effect}}</p>
+                <h3>{{cards.name}}</h3>
+                <p>{{cards.effect}}</p>
             </div>
         {{/each}}
     </div>
 </main>
 
-{{!-- {{/content}} --}}
 
-{{!-- {{/extend}} --}}

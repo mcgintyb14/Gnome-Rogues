@@ -1,16 +1,30 @@
 <main>
     <h1>Your Character</h1>
-    <div>
-        {{!-- This should pull data from the "Character" model and display all of the relevant stats (--}}
-        {{!-- This will also need to pull in data from "Gnome" model for the image of the character --}}
-        {{!-- Lastly, on the bottom of the page it should display a row of 8 cards (#each loops to loop through the "Hand" model) --}}
+    <div class="character-container">
+        <!-- Character Stats -->
         <div class="character-card">
-            <img src="{{Gnome.Image}}" alt="{{gnome.class_name}}" class="gnome-class-image">
-            <h2 class="gnome-class-name">{{gnome.class_name}}</h2>
-            <div class="gnome-class-attributes">
+            <img src="{{Character.Gnome.Image}}" alt="{{Character.Gnome.class_name}}" class="character-image">
+            <h2 class="character-name">{{Character.Gnome.class_name}}</h2>
+            <div class="character-attributes">
                 <p>Max HP: {{Character.MaxHP}}</p>
                 <p>Strength: {{Character.Strength}}</p>
                 <p>Agility: {{Character.Agility}}</p>
+                <p>Type: {{Character.type}}</p>
             </div>
         </div>
-    </main>
+        <!-- Character Hand -->
+        <div class="hand-cards-container">
+            {{#each Character.Hand as |card|}}
+                <div class="card">
+                    <img src="{{card.Image}}" alt="{{card.Name}}" class="card-image">
+                    <div class="card-details">
+                        <p class="card-name">Name: {{card.Name}}</p>
+                        <p class="card-damage">Damage: {{card.Damage}}</p>
+                        <p class="card-dodge">Dodge: {{card.Dodge}}</p>
+           
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</main>
