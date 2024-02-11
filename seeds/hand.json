@@ -5,22 +5,14 @@
     },
     {
         "character_id": 1,
-        "card_id": 2
-    },
-    {
-        "character_id": 1,
-        "card_id": 3
-    },
-    {
-        "character_id": 1,
         "card_id": 4
     },
     {
         "character_id": 1,
-        "card_id": 5
+        "card_id": 15
     },
     {
         "character_id": 1,
-        "card_id": 4
+        "card_id": 16
     }
 ]

@@ -21,6 +21,10 @@ const gameCharacter = {
     Agility: this.Agility,
     Image: this.Image,
     Type: this.Type,
+
+    //fetch data to store in this object
+    //need current character id to fetch appropriate data
+    
 }
 
 
