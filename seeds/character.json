@@ -1,13 +1,11 @@
 [
     {
-        "id": 1,
         "user_id": 1,
         "name": "Gnomester",
         "class_id": 1,
         "current_hp": 100
     },
     {
-        "id": 2,
         "user_id": 2,
         "name": "Rockstar",
         "class_id": 2,
