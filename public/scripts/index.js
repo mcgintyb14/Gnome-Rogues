@@ -4,10 +4,12 @@
 
 //get cards is already a helper function. Can use that to shuffle the cards each turn.
 
+
 let playedCard;
 let gameCharacter;
 let enemy;
 // let gameDisplay;
+
 
 class Enemy {
     constructor(id, name, attack, agility, hp, special_move) {
@@ -40,6 +42,56 @@ class Card {
         this.damage = damage;
         this.dodge = dodge;
     }
+
+const getCharData = () => {
+    //may need to change this route before deploy
+    fetch(`http://localhost:3001/api/game/characterinfo/`)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network error');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const characterData = data.character;
+        const enemyData = data.enemy;
+        const classData = data.gnomeClass;
+
+        if (characterData && classData) {
+            const gameCharacter = new Character(
+                characterData.id,
+                characterData.class_id,
+                classData.class_name,
+                characterData.name,
+                classData.MaxHP,
+                characterData.current_hp,
+                classData.Strength,
+                classData.Agility
+            )
+            console.log(gameCharacter);
+
+        } else {
+            console.log('Character data is null');
+        }
+
+        if (enemyData) {
+            const enemy = new Enemy(
+                enemyData.id,
+                enemyData.name,
+                enemyData.attack,
+                enemyData.agility,
+                enemyData.hp,
+                enemyData.special_move
+            )
+            console.log(enemy);
+        } else {
+            console.log('Enemy data is null');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
 //TODO:
@@ -180,5 +232,6 @@ const startGame = () => {
 }
 
 startGame();
+
 //at end of round, send any relevant game data to the database
 
