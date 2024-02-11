@@ -58,9 +58,13 @@ router.get('/characterinfo', async (req, res) => {
         const handData = await Hand.findByPk(req.session.characterId);
 
         const characterData = await Character.findByPk(req.session.characterId);
-        
+
+        const classData = await Gnome.findByPk(characterData.class_id);        
         // This is a placeholder for when we have a "game" handlebars file to render, which will render a random enemy to face using the random enemy data we are passing here
-        res.json({ enemy: randomEnemy, cards: randomCards, character: characterData });
+        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
+
+        //sending data to frontend
+        res.json({ enemy: randomEnemy, character: characterData, gnomeClass: classData });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });

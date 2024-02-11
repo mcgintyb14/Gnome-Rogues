@@ -5,38 +5,84 @@
 //get cards is already a helper function. Can use that to shuffle the cards each turn.
 
 //import playedCard data
-const playedCard = require()
+let playedCard;
 
 //set variable to use for loading text content regarding the game battle
 let gameDisplay;
 
-//Store class starting data
-const gameCharacter = {
-    id: this.id,
-    charClass: this.class_name,
-    name: this.name, //need to pull in name from loading page
-    maxHP: this.MaxHP,
-    currentHP: this.MaxHP,
-    Strength: this.Strength,
-    Agility: this.Agility,
-    Image: this.Image,
-    Type: this.Type,
-
-    //fetch data to store in this object
-    //need current character id to fetch appropriate data
-    
+class Enemy {
+    constructor(id, name, attack, agility, hp, special_move) {
+        this.id = id;
+        this.name = name;
+        this.attack = attack;
+        this.agility = agility;
+        this.hp = hp;
+        this.special_move = special_move;
+    }
 }
 
+class Character {
+    constructor(id, className, name, maxHP, currentHP, strength, agility) {
+        this.id =id;
+        this.classID = classID;
+        this.className = className;
+        this.name = name;
+        this.maxHP = maxHP;
+        this.currentHP = currentHP;
+        this.strength = strength;
+        this.agility = agility;
+    }
+}
 
-//Store enemy starting data
-const enemy = {
-    id: this.id,
-    attack: this.attack,
-    agility: this.agility,
-    maxHP: this.hp,
-    currentHP: this.hp,
-    move: this.special_move,
-    name: this.name
+const getCharData = () => {
+    //may need to change this route before deploy
+    fetch(`http://localhost:3001/api/game/characterinfo/`)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network error');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        const characterData = data.character;
+        const enemyData = data.enemy;
+        const classData = data.gnomeClass;
+
+        if (characterData && classData) {
+            const gameCharacter = new Character(
+                characterData.id,
+                characterData.class_id,
+                classData.class_name,
+                characterData.name,
+                classData.MaxHP,
+                characterData.current_hp,
+                classData.Strength,
+                classData.Agility
+            )
+            console.log(gameCharacter);
+
+        } else {
+            console.log('Character data is null');
+        }
+
+        if (enemyData) {
+            const enemy = new Enemy(
+                enemyData.id,
+                enemyData.name,
+                enemyData.attack,
+                enemyData.agility,
+                enemyData.hp,
+                enemyData.special_move
+            )
+            console.log(enemy);
+        } else {
+            console.log('Enemy data is null');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
 //function to check if alive
@@ -73,6 +119,6 @@ const enemyTurn = setInterval(() => {
 }, 6000);
 
 
-
+getCharData();
 //at end of round, send any relevant game data to the database
 
