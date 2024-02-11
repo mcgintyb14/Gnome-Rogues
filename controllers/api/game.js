@@ -72,4 +72,3 @@ router.get('/characterinfo', async (req, res) => {
 });
 
 module.exports = router
-
