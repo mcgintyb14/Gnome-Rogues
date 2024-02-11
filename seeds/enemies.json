@@ -4,7 +4,8 @@
         "attack": 20,
         "agility": 25,
         "hp": 50,
-        "special_move": ""
+        "special_move": "",
+        "Image": "./images/Baby.jpg"
     },
     {
         
@@ -12,7 +13,8 @@
         "attack": 20,
         "agility": 80,
         "hp": 50,
-        "special_move": ""
+        "special_move": "",
+        "Image": "./images/Cat.jpg"
     },
     {
         
@@ -20,6 +22,7 @@
         "attack": 50,
         "agility": 45,
         "hp": 100,
-        "special_move": ""
+        "special_move": "",
+        "Image": "./images/Dog.jpg"
     }
 ]
