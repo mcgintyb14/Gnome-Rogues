@@ -29,7 +29,10 @@ Enemies.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        Image: {
+            type: DataTypes.STRING,
+            allowNull: false
 
     },
     {
