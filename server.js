@@ -33,6 +33,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/public/css/style.css', (req, res) => {
+  res.setHeader('Content-Type', 'text/css');
+  res.sendFile(__dirname + '/public/css/style.css');
+});
+
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
