@@ -52,7 +52,7 @@ main {
     margin: 10px 0;
 }
 
-.cards-container {
+.card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
