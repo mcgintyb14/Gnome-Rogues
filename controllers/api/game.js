@@ -21,11 +21,7 @@ router.get('/', async (req, res) => {
         
         //TODO: plugged in temp class_id and character id. Need to re-link.
         const deckData = await Deck.findAll({
-        
-        //TODO: plugged in temp class_id and character id. Need to re-link.
-        const deckData = await Deck.findAll({
             where: {
-                class_id: characterData.class_id
                 class_id: characterData.class_id
             }
         });
