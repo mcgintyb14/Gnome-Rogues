@@ -1,3 +1,5 @@
+const { Card } = require('../models');
+
 // Get the card_ids from the handData
 // const getCards = (deck) => {
 //     const randomCards = [];
@@ -12,12 +14,21 @@
 // module.exports = { getCards }
 
 // helpers.js
-const getCards = (deck) => {
+const getCardByID = async (id) => {
+    let cardData = await Card.findByPk(id)
+    const card = cardData.get({ plain: true });
+    return card;
+}
+
+
+const getCards = async (deck) => {
     const randomCards = new Set();
     while(randomCards.size < 4) {
         const randomCardIndex = Math.floor(Math.random() * deck.length);
-        randomCards.add(deck[randomCardIndex]);
+        let newCard = await getCardByID(deck[randomCardIndex].card_id)
+        randomCards.add(newCard);
     }
+    console.log(randomCards)
     return Array.from(randomCards);
  }
  
