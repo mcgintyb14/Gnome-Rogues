@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
                 class_id: characterData.class_id
             }
         });
-        });
 
         deck = deckData.map((deck) => deck.get({ plain: true }));
         randomCards = getCards(deck);
