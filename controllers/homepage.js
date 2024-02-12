@@ -30,12 +30,12 @@ router.post('/account', async (req, res) => {
 
     res.status(200).json(accountData);
 
-    // This will be a placeholder for login later
-    // req.session.save(() => {
-    //   req.session.loggedIn = true;
+    req.session.save(() => {
+      req.session.loggedIn = true;
 
-    //   res.status(200).json(dbUserData);
-    // });
+      res.status(200).json(dbUserData);
+
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -50,6 +50,9 @@ router.post('/account', async (req, res) => {
 
 router.post('/character-and-cards', async (req, res) => {
   try {
+    // 
+    const characterId = generateUniqueId(); // Generate a unique ID for the character
+    req.session.characterId = characterId; // Store the character ID in the session
     // Find the Gnome data based on the selected class_id
     const gnomeData = await Gnome.findByPk(req.body.class_id);
     console.log(gnomeData);
