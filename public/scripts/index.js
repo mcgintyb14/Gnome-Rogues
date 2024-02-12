@@ -4,10 +4,12 @@
 
 //get cards is already a helper function. Can use that to shuffle the cards each turn.
 
+
 let playedCard;
 let gameCharacter;
 let enemy;
 // let gameDisplay;
+
 
 class Enemy {
     constructor(id, name, attack, agility, hp, special_move) {
@@ -180,5 +182,6 @@ const startGame = () => {
 }
 
 startGame();
+
 //at end of round, send any relevant game data to the database
 
