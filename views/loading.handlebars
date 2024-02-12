@@ -12,8 +12,8 @@
                 <p>Type: {{Gnome.dataValues.Type}}</p>
             </div>
         </div>
-        <!-- Character Hand -->
-        <div class="character-form">
+        <!-- Character Form for Name Submission -->
+        <div class="character-form" id="characterFormContainer">
             <h2>Enter Your Information</h2>
             <form id="characterForm" method="POST">
                 <label for="characterName">Character Name:</label>
@@ -34,15 +34,15 @@
             const formData = new FormData(characterForm); // Create FormData object from form data
 
             try {
-                const response = await fetch('/loading-character', {
-                    method: 'POST',
+                const response = await fetch('/api/game/submit-character-name', { // Change the endpoint to submit the form data
+                    method: 'POST', // Change the method to POST
                     body: formData
                 });
 
                 // Check if the response is ok
                 if (response.ok) {
-                    // Redirect the user to the loading-character page
-                    window.location.href = '/loading-character';
+                    // Reload the page to update character information
+                    window.location.reload();
                 } else {
                     console.error('Failed to submit form');
                 }
@@ -52,4 +52,5 @@
         });
     </script>
 </main>
+
 

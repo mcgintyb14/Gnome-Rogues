@@ -48,43 +48,74 @@ router.post('/account', async (req, res) => {
 // After that, this includes a similar check on the newly created "characterData", and uses it to also create a new hand based on the newly created character. Note this hand currently
 // Takes the card_ids specified for that class in the Gnome model
 
+// router.post('/character-and-cards', async (req, res) => {
+//   try {
+//     // 
+//     const characterId = generateUniqueId(); // Generate a unique ID for the character
+//     req.session.characterId = characterId; // Store the character ID in the session
+//     // Find the Gnome data based on the selected class_id
+//     const gnomeData = await Gnome.findByPk(req.body.class_id);
+//     console.log(gnomeData);
+//     // If the gnomeData is found, create a new Character
+//     if (gnomeData) {
+//       // Create a new Character
+//       const characterData = await Character.create({
+//         name: req.body.name,
+//         class_id: req.body.class_id,
+//         strength: gnomeData.strength,
+//         agility: gnomeData.agility,
+//         current_hp: 100 // Assuming initial HP is 100
+//       });
+
+//       // If characterData is created successfully, proceed to create a new Hand
+//       if (characterData) {
+//         const handData = await Hand.create({
+//           class_id: req.body.class_id,
+//           card_ids: gnomeData.card_ids,
+//           character_id: characterData.id // Assign the character_id to the Hand
+//         });
+
+//         res.status(201).json({ characterData, handData });
+//       } else {
+//         res.status(500).json({ error: 'Failed to create character' });
+//       }
+//     } else {
+//       res.status(404).json({ error: 'Gnome data not found for the selected class_id' });
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json(err);
+//   }
+// });
+
 router.post('/character-and-cards', async (req, res) => {
   try {
-    // 
-    const characterId = generateUniqueId(); // Generate a unique ID for the character
-    req.session.characterId = characterId; // Store the character ID in the session
-    // Find the Gnome data based on the selected class_id
-    const gnomeData = await Gnome.findByPk(req.body.class_id);
-    console.log(gnomeData);
-    // If the gnomeData is found, create a new Character
-    if (gnomeData) {
-      // Create a new Character
-      const characterData = await Character.create({
-        name: req.body.name,
-        class_id: req.body.class_id,
-        strength: gnomeData.strength,
-        agility: gnomeData.agility,
-        current_hp: 100 // Assuming initial HP is 100
-      });
-
-      // If characterData is created successfully, proceed to create a new Hand
-      if (characterData) {
-        const handData = await Hand.create({
-          class_id: req.body.class_id,
-          card_ids: gnomeData.card_ids,
-          character_id: characterData.id // Assign the character_id to the Hand
-        });
-
-        res.status(201).json({ characterData, handData });
+      const characterId = generateUniqueId();
+      req.session.characterId = characterId;
+      const gnomeData = await Gnome.findByPk(req.body.class_id);
+      if (gnomeData) {
+          const characterData = await Character.create({
+              class_id: req.body.class_id,
+              strength: gnomeData.strength,
+              agility: gnomeData.agility,
+              current_hp: 100
+          });
+          if (characterData) {
+              const handData = await Hand.create({
+                  class_id: req.body.class_id,
+                  card_ids: gnomeData.card_ids,
+                  character_id: characterData.id
+              });
+              res.status(201).json({ characterData, handData });
+          } else {
+              res.status(500).json({ error: 'Failed to create character' });
+          }
       } else {
-        res.status(500).json({ error: 'Failed to create character' });
+          res.status(404).json({ error: 'Gnome data not found for the selected class_id' });
       }
-    } else {
-      res.status(404).json({ error: 'Gnome data not found for the selected class_id' });
-    }
   } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
+      console.error(err);
+      res.status(500).json(err);
   }
 });
 
