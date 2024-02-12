@@ -17,8 +17,10 @@
             <h2>Enter Your Information</h2>
             <form id="characterForm" method="POST">
                 <label for="characterName">Character Name:</label>
-                <input type="text" id="characterName" name="characterName" required>
+                <input type="text" id="characterName" name="name" required>
+                <input type="text" name="current_hp" value={{Gnome.dataValues.MaxHP}} hidden="true">
                 <button type="submit">Submit</button>
+
             </form>
         </div>
     </div>
@@ -28,21 +30,21 @@
         const characterForm = document.getElementById('characterForm');
 
         // Add event listener for form submission
-        characterForm.addEventListener('submit', async (event) => {
+        characterForm.addEventListener('submit', async function (event) {
             event.preventDefault(); // Prevent default form submission behavior
-
             const formData = new FormData(characterForm); // Create FormData object from form data
-
             try {
-                const response = await fetch('/loading-character', {
+                const class_id = window.location.search.split("=")[1]
+                const response = await fetch(`/api/game/submit-character-name/${class_id}`, {
                     method: 'POST',
                     body: formData
                 });
-
                 // Check if the response is ok
+        
+                const data = await response.json();
                 if (response.ok) {
                     // Redirect the user to the loading-character page
-                    window.location.href = '/loading-character';
+                    window.location.href = `/game/${data.id}`;
                 } else {
                     console.error('Failed to submit form');
                 }
