@@ -14,13 +14,13 @@
 
     <p> Writing random stuff to test</p>
 
-    <div class="card-container">
-        {{!-- {{#each cards}}
+  <div class="card-container">
+        {{#each cards as |card|}}
         <div class="card">
-            <h3>{{cards.name}}</h3>
-            <p>Damage: {{cards.damage}}</p>
-            <p>Dodge: {{cards.dodge}}</p>
+            <h3>{{card.name}}</h3>
+            <p>Damage: {{card.damage}}</p>
+            <p>Dodge: {{card.dodge}}</p>
         </div>
-        {{/each}} --}}
+        {{/each}}
     </div>
 </main>

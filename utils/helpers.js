@@ -28,8 +28,9 @@ const getCards = async (deck) => {
         let newCard = await getCardByID(deck[randomCardIndex].card_id)
         randomCards.add(newCard);
     }
-    console.log(randomCards)
-    return Array.from(randomCards);
+    const currentCards = Array.from(randomCards);
+    // console.log(currentCards);
+    return currentCards;
  }
  
  module.exports = { getCards }
