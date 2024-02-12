@@ -25,10 +25,14 @@ router.get('/game/:id', async (req, res) => {
     // Get all classes from Gnome model and display on the homepage
     // This pulls in all data from the Gnome model, while excluding the array of card ids as this likel
     const character = await Character.findByPk(req.params.id);
+    const allEnemies = await Enemies.findAll();
+    const randomIndex = Math.floor(Math.random() * allEnemies.length);
+    const randomEnemy = allEnemies[randomIndex];
     // Serialize data so the template can read it and render the appropriate data on the homepage=
     const data = character.get({ plain: true });
+    console.log(randomEnemy);
     console.log('coming back on the client side', data)
-    res.render('game', { character: data });
+    res.render('game', { character: data, enemy: randomEnemy });
   } catch (err) {
     res.status(500).json(err);
   }

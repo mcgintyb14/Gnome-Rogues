@@ -1,25 +1,24 @@
 <main class="game-interface">
-   <div class="character-container">
-       {{!-- <img src="{{character.Image}}" alt="Character Image" class="character-image"> --}}
-       <h2>{{character.name}}</h2>
-       <p>HP: {{character.current_hp}}</p>
-   </div>
+    <div class="enemies-container">
+        <img src="{{enemy.dataValues.Image}}" alt="Enemy Image">
+        <h2>{{enemy.dataValues.name}}</h2>
+        <p>{{enemy.dataValues.name}}'s' HP: {{enemy.dataValues.hp}}</p>
+    </div>
 
-   <div class="enemies-container">
-       {{!-- <img src="{{enemies.Image}}" alt="Enemy Image" class="enemies-image">
-       <h2>{{enemies.name}}</h2>
-       <p>HP: {{enemies.hp}}</p> --}}
-   </div>
+    <div class="character-container">
+        {{!-- <img src="{{character.Image}}" alt="Character Image"
+            class="character-image"> --}}
+        <h2>{{character.name}}</h2>
+        <p>{{character.name}}'s HP: {{character.current_hp}}</p>
+    </div>
 
-   <div class="card-container">
-       {{!-- {{#each cards}}
-           <div class="card">
-               <h3>{{cards.name}}</h3>
-               <p>Damage: {{cards.damage}}</p> 
-               <p>Dodge: {{cards.dodge}}</p>   
-           </div>
-       {{/each}} --}}
-   </div>
+    <div class="card-container">
+        {{!-- {{#each cards}}
+        <div class="card">
+            <h3>{{cards.name}}</h3>
+            <p>Damage: {{cards.damage}}</p>
+            <p>Dodge: {{cards.dodge}}</p>
+        </div>
+        {{/each}} --}}
+    </div>
 </main>
-
-
