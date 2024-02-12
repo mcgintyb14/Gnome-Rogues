@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { getCards } = require('../../utils/helpers');
 const { User, Character, Enemies, Gnome, Card, Hand, Deck } = require('../../models');
 const { generateUniqueId } = require('../../utils/uniequeid');
+const multer = require('multer');
+const upload = multer();
 
 let randomCards;
 let deck = [];
@@ -41,6 +43,7 @@ let deck = [];
 
 router.get('/', async (req, res) => {
     try {
+        debugger
         const allEnemies = await Enemies.findAll();
         const randomIndex = Math.floor(Math.random() * allEnemies.length);
         const randomEnemy = allEnemies[randomIndex];
@@ -58,11 +61,10 @@ router.get('/', async (req, res) => {
         randomCards = getCards(deck);
 
         console.log(randomCards); // Log randomCards to the console
-        console.log(characterData);
-        console.log(randomEnemy);
-        console.log(classData);
 
-        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData, class: classData });
+        // res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData, class: classData });
+
+        res.render('game', { character: characterData });
 
     } catch (err) {
         console.error(err);
@@ -128,16 +130,26 @@ router.get('/loading', async (req, res) => {
 //     }
 // });
 
-router.post('/submit-character-name', async (req, res) => {
+router.post('/submit-character-name/:class_id', upload.none(), async (req, res) => {
     try {
-        const { characterName } = req.body;
-        const characterId = req.session.characterId; // Retrieve character ID from session
+        // const { characterName } = req.body;
+        // const characterId = req.session.characterId; // Retrieve character ID from session
         // Find the existing character by ID and update its name
-        const updatedCharacter = await Character.findByPk(characterId);
-        if (updatedCharacter) {
-            updatedCharacter.name = characterName;
-            await updatedCharacter.save(); // Save the updated character
-            res.render('loading-character', { characterName });
+        // const updatedCharacter = await Character.findByPk(characterId);
+        const createdCharacter = await Character.create({
+            name: req.body.name,
+            class_id: req.params.class_id,
+            current_hp: req.body.current_hp
+        });
+        const character = createdCharacter.get({plain: true})
+        // const newChar = character.findByPk(character.id, {include: [{model: Character}]});
+        // const charData = character.get({plain: true});
+        if (character) {
+            // updatedCharacter.name = characterName;
+            // await updatedCharacter.save(); // Save the updated character
+            // res.render('game', { character });
+            
+            res.status(200).send(character)
         } else {
             res.status(404).json({ error: 'Character not found' });
         }
@@ -147,13 +159,12 @@ router.post('/submit-character-name', async (req, res) => {
     }
 });
 
-
-router.get('/loading-character', async (req, res) => {
+router.get('/loading-character/:id', async (req, res) => {
     try {
-        const { class_id } = req.query;
-
+        console.log("landed in this route");
+        const { class_id } = req.params.id;
         // Fetch the newly posted characterName data from the session or wherever it's stored
-        const characterName = req.session.characterName; // Adjust this according to how you're storing the characterName
+        // const characterName = req.session.characterName; // Adjust this according to how you're storing the characterName
         
         // Fetch the same data as the /loading route
         const gnomeData = await Gnome.findByPk(class_id);
@@ -195,6 +206,3 @@ router.get('/test-error', (req, res, next) => {
 });
 
 module.exports = router;
-
-
-
