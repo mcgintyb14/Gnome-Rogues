@@ -14,7 +14,7 @@
 
     <p> Writing random stuff to test</p>
 
-  <div class="card-container">
+  <div class="card-container" id="card-container">
         {{#each cards as |card|}}
         <div class="card">
             <h3>{{card.name}}</h3>
@@ -23,4 +23,14 @@
         </div>
         {{/each}}
     </div>
+    <script>
+        // Get the form element
+        const selectedCard = document.getElementById('card-container');
+
+        // Add event listener for form submission
+        selectedCard.addEventListener('click', async function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            
+        })
+    </script>
 </main>
