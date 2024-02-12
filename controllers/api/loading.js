@@ -1,17 +1,22 @@
-const router = require('express').Router();
-const { Character, Hand } = require('../../models');
+// const router = require('express').Router();
+// const { Character, Hand } = require('../../models');
+// const { generateUniqueId } = require('../../utils/uniequeid');
 
-router.get('/loading', async (req, res) => {
-    try {
-        const handData = await Hand.findByPk(req.session.characterId);
+// router.post('/submit-form', async (req, res) => {
+//     try {
+//         // Extract form data from the request body
+//         const { username, password, email, characterName } = req.body;
 
-        const characterData = await Character.findByPk(req.session.characterId);
-        
-        res.render('loading', { cards: handData, character: characterData });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+//         // Create a new User entry
+//         const newUser = await User.create({ username, password, email });
 
-module.exports = router
+//         // Create a new Character entry associated with the user
+//         const newCharacter = await Character.create({ name: characterName, UserId: newUser.id });
+
+//         // Redirect the user to a confirmation page or any other page
+//         res.redirect('/confirmation');
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Failed to process the form submission' });
+//     }
+// });

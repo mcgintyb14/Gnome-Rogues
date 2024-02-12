@@ -3,28 +3,53 @@
     <div class="character-container">
         <!-- Character Stats -->
         <div class="character-card">
-            <img src="{{Character.Gnome.Image}}" alt="{{Character.Gnome.class_name}}" class="character-image">
-            <h2 class="character-name">{{Character.Gnome.class_name}}</h2>
+            <img src="{{Gnome.dataValues.Image}}" alt="{{Gnome.dataValues.class_name}}" class="character-image">
+            <h2 class="character-name">{{Gnome.dataValues.class_name}}</h2>
             <div class="character-attributes">
-                <p>Max HP: {{Character.MaxHP}}</p>
-                <p>Strength: {{Character.Strength}}</p>
-                <p>Agility: {{Character.Agility}}</p>
-                <p>Type: {{Character.type}}</p>
+                <p>Max HP: {{Gnome.dataValues.MaxHP}}</p>
+                <p>Strength: {{Gnome.dataValues.Strength}}</p>
+                <p>Agility: {{Gnome.dataValues.Agility}}</p>
+                <p>Type: {{Gnome.dataValues.Type}}</p>
             </div>
         </div>
         <!-- Character Hand -->
-        <div class="hand-cards-container">
-            {{#each Character.Hand as |card|}}
-                <div class="card">
-                    <img src="{{card.Image}}" alt="{{card.Name}}" class="card-image">
-                    <div class="card-details">
-                        <p class="card-name">Name: {{card.Name}}</p>
-                        <p class="card-damage">Damage: {{card.Damage}}</p>
-                        <p class="card-dodge">Dodge: {{card.Dodge}}</p>
-           
-                    </div>
-                </div>
-            {{/each}}
+        <div class="character-form">
+            <h2>Enter Your Information</h2>
+            <form id="characterForm" method="POST">
+                <label for="characterName">Character Name:</label>
+                <input type="text" id="characterName" name="characterName" required>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
+
+    <script>
+        // Get the form element
+        const characterForm = document.getElementById('characterForm');
+
+        // Add event listener for form submission
+        characterForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const formData = new FormData(characterForm); // Create FormData object from form data
+
+            try {
+                const response = await fetch('/loading-character', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Check if the response is ok
+                if (response.ok) {
+                    // Redirect the user to the loading-character page
+                    window.location.href = '/loading-character';
+                } else {
+                    console.error('Failed to submit form');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </main>
+
