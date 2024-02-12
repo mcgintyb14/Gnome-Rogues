@@ -4,11 +4,12 @@
 
 //get cards is already a helper function. Can use that to shuffle the cards each turn.
 
-//import playedCard data
-let playedCard;
 
-//set variable to use for loading text content regarding the game battle
-let gameDisplay;
+let playedCard;
+let gameCharacter;
+let enemy;
+// let gameDisplay;
+
 
 class Enemy {
     constructor(id, name, attack, agility, hp, special_move) {
@@ -16,7 +17,7 @@ class Enemy {
         this.name = name;
         this.attack = attack;
         this.agility = agility;
-        this.hp = hp;
+        this.currentHP = currentHP;
         this.special_move = special_move;
     }
 }
@@ -32,6 +33,46 @@ class Character {
         this.strength = strength;
         this.agility = agility;
     }
+}
+
+class Card {
+    constructor(id, name, damage, dodge) {
+        this.id = id;
+        this.name = name;
+        this.damage = damage;
+        this.dodge = dodge;
+    }
+}
+
+//TODO:
+//add in endpoint to game.js route
+const selectCard = async () => {
+    fetch('http://localhost:3001/api/game/selectCard')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch selected card');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const cardData = data.card;
+        if(cardData) {
+            playedCard = new Card(
+                cardData.id,
+                cardData.name,
+                cardData.damage,
+                cardData.dodge
+            )
+        console.log(playedCard);
+        return playedCard;
+        } else {
+            return null;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching selected card:', error);
+        throw error;
+    });
 }
 
 const getCharData = () => {
@@ -50,7 +91,7 @@ const getCharData = () => {
         const classData = data.gnomeClass;
 
         if (characterData && classData) {
-            const gameCharacter = new Character(
+            gameCharacter = new Character(
                 characterData.id,
                 characterData.class_id,
                 classData.class_name,
@@ -67,7 +108,7 @@ const getCharData = () => {
         }
 
         if (enemyData) {
-            const enemy = new Enemy(
+            enemy = new Enemy(
                 enemyData.id,
                 enemyData.name,
                 enemyData.attack,
@@ -86,39 +127,61 @@ const getCharData = () => {
 }
 
 //function to check if alive
-const isAlive = () => {
-    if (this.currentHP <= 0) {
-        console.log(`${this.name} has been defeated!`);
-        return false;
-      }
-      return true;
+const isAlive = (character) => {
+    return character.currentHP > 0;
 }
 
-const enemyAttack = (enemy, playedCard) => { //need previously played card
-    gameCharacter.currentHP -= enemy.attack - card.dodge //add in some sort of % miss chance based on char agility + card block
-    //add logic for game display depending on if the hit landed 
+const enemyAttack = () => { 
+    //TODO: add in some sort of % miss chance based on char agility + card block
+    //TODO: calaculate if hit landed 
+    const dmgToPlayer = enemy.attack - playedCard.dodge
+    if (dmgToPlayer > 0) {
+        gameCharacter.currentHP -= dmgToPlayer;
+        if(!isAlive(gameCharacter)) {
+            console.log("Game Over"); //store this in game display??
+            return;
+        }
+    } else {
+        console.log("dodged enemy attack!");
+    }
+    playerTurn();
 }
 
-//await the player to select a card, then trigger enemy turn
-const enemyTurn = setInterval(() => {
-    let totalTime = 0;
-    if (totalTime <= 1000) {
-        gameDisplay = "Enemy turn";
-    }
-    if (totalTime > 1000 && totalTime < 5000) {
-        enemyAttack(enemy, playedCard);
-    }
+const charAttack = () => {
+    //TODO: add in % miss chance based on enemy agility
+    //TODO: calaculate if hit landed
+    const dmgToEnemy = playedCard.damage;
+    if (dmgToEnemy > 0) {
+        enemy.currentHP -= dmgToEnemy;
+        if(!isAlive(enemy)) {
+            console.log("Enemy defeated!"); //store this in game display??
+            return;
+        } 
+    } else {
+        console.log("Enemy dodged your attack!")
+    } 
+    enemyTurn();
+}
 
-    //should be several seconds to give to player time to see what is happening
-    
-    //at 5 secs, display player turn
-    if (totalTime >= 5000) {
-        console.log("Player Turn");
-    }
-    //at end of 6 secs, goes back to waiting for player to select their next card
-}, 6000);
+//playerTurn is performed only when a card is selected
+const playerTurn = async () => {
+    let selectedCard = await selectCard();
+    charAttack(selectedCard);
+}
+
+const enemyTurn = () => {
+    enemyAttack();
+    //TODO: add in function to trigger new cards for the player if they are still alive (possibly into enemy attack)
+}
 
 
-getCharData();
+const startGame = () => {
+    getCharData()
+    console.log("Game started.");
+    playerTurn();
+}
+
+startGame();
+
 //at end of round, send any relevant game data to the database
 

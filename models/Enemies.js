@@ -33,7 +33,7 @@ Enemies.init(
         Image: {
             type: DataTypes.STRING,
             allowNull: false
-
+        }
     },
     {
         sequelize,
