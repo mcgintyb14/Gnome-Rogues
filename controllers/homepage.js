@@ -1,6 +1,7 @@
 const router = require('express').Router();
 // We are pulling in all of the models 
 const { User, Character, Enemies, Gnome, Card, Hand, Deck } = require('../models');
+const { getCards } = require('../utils/helpers');
 
 router.get('/', async (req, res) => {
   try {
@@ -25,14 +26,26 @@ router.get('/game/:id', async (req, res) => {
     // Get all classes from Gnome model and display on the homepage
     // This pulls in all data from the Gnome model, while excluding the array of card ids as this likel
     const character = await Character.findByPk(req.params.id);
+    const classData = await Gnome.findByPk(character.class_id); 
     const allEnemies = await Enemies.findAll();
     const randomIndex = Math.floor(Math.random() * allEnemies.length);
     const randomEnemy = allEnemies[randomIndex];
+    const deckData = await Deck.findAll({
+      where: {
+          class_id: classData.id
+      }
+  });
+
+  let deck = deckData.map((deck) => deck.get({ plain: true }));
+  // console.log(deck);
+  let randomCards = await getCards(deck);
+
+  console.log(randomCards);
     // Serialize data so the template can read it and render the appropriate data on the homepage=
     const data = character.get({ plain: true });
-    console.log(randomEnemy);
-    console.log('coming back on the client side', data)
-    res.render('game', { character: data, enemy: randomEnemy });
+    // console.log(randomEnemy);
+    // console.log('coming back on the client side', data)
+    res.render('game', { character: data, enemy: randomEnemy, cards: randomCards} );
   } catch (err) {
     res.status(500).json(err);
   }
