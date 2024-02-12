@@ -2,7 +2,8 @@ const router = require('express').Router();
 const { getCards } = require('../../utils/helpers');
 const { User, Character, Enemies, Gnome, Card, Hand, Deck } = require('../../models');
 
-var randomCards;
+let randomCards;
+let deck = [];
 
 router.get('/', async (req, res) => {
     try {
@@ -24,8 +25,8 @@ router.get('/', async (req, res) => {
             }
         });
 
-        const deck = deckData.map((deck) => deck.get({ plain: true }));
-        const randomCards = getCards(deck);
+        deck = deckData.map((deck) => deck.get({ plain: true }));
+        randomCards = getCards(deck);
 
         console.log(randomCards);
 
@@ -52,28 +53,17 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/characterinfo', async (req, res) => {
+router.get('/getcards', async (req, res) => {
     try {
-        const allEnemies = await Enemies.findAll();
-
-        const randomIndex = Math.floor(Math.random() * allEnemies.length);
-
-        const randomEnemy = allEnemies[randomIndex];
-
-        const handData = await Hand.findByPk(req.session.characterId);
-
-        const characterData = await Character.findByPk(req.session.characterId);
-
-        const classData = await Gnome.findByPk(characterData.class_id);        
-        // This is a placeholder for when we have a "game" handlebars file to render, which will render a random enemy to face using the random enemy data we are passing here
-        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
-
-        //sending data to frontend
-        res.json({ enemy: randomEnemy, character: characterData, gnomeClass: classData });
+        randomCards = getCards(deck);
+        console.log(randomCards);
+        res.render('game', { cards: randomCards });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+//TODO: add route for selected card when it's clicked
 
 module.exports = router
