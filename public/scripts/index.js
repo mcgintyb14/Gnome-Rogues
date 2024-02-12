@@ -77,7 +77,7 @@ const selectCard = async () => {
 
 const getCharData = () => {
     //may need to change this route before deploy
-    fetch(`http://localhost:3001/api/game/characterinfo/`)
+    fetch(`http://localhost:3001/api/game/`)
     .then(response => {
         if (!response.ok) {
         throw new Error('Network error');
@@ -171,7 +171,20 @@ const playerTurn = async () => {
 
 const enemyTurn = () => {
     enemyAttack();
-    //TODO: add in function to trigger new cards for the player if they are still alive (possibly into enemy attack)
+    newCardSet();
+}
+
+const newCardSet = () => {
+    fetch(`http://localhost:3001/api/game/getcards`)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network error');
+        }
+        console.log('Next card set created');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 

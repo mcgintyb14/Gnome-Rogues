@@ -3,25 +3,32 @@ const { getCards } = require('../../utils/helpers');
 const { User, Character, Enemies, Gnome, Card, Hand, Deck } = require('../../models');
 const { generateUniqueId } = require('../../utils/uniequeid');
 
+let randomCards;
+let deck = [];
+
 router.get('/', async (req, res) => {
     try {
         const allEnemies = await Enemies.findAll();
         const randomIndex = Math.floor(Math.random() * allEnemies.length);
         const randomEnemy = allEnemies[randomIndex];
 
+        //TODO: add below back in once session is working
+        // const characterData = await Character.findByPk(req.session.characterId);
+        const characterData = await Character.findByPk(1);
+        const classData = await Gnome.findByPk(characterData.class_id); 
+        
+        //TODO: plugged in temp class_id and character id. Need to re-link.
         const deckData = await Deck.findAll({
             where: {
-                class_id: 1
+                class_id: characterData.class_id
             }
         });
 
-        const deck = deckData.map((deck) => deck.get({ plain: true }));
-        const randomCards = getCards(deck);
+        deck = deckData.map((deck) => deck.get({ plain: true }));
+        randomCards = getCards(deck);
 
-        const characterData = await Character.findByPk(req.session.characterId);
+        console.log(randomCards);
 
-        const classData = await Gnome.findByPk(characterData.class_id); 
-        
         res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
 
         //sending data to frontend
@@ -87,23 +94,19 @@ router.post('/loading-character', async (req, res) => {
     }
 });
 
-router.get('/characterinfo', async (req, res) => {
+//route to handle frontend request for a new set of 4 cards to generate and sends to handlebars file
+router.get('/getcards', async (req, res) => {
     try {
-        const allEnemies = await Enemies.findAll();
-        const randomIndex = Math.floor(Math.random() * allEnemies.length);
-        const randomEnemy = allEnemies[randomIndex];
-
-        const handData = await Hand.findByPk(req.session.characterId);
-        const characterData = await Character.findByPk(req.session.characterId);
-        const classData = await Gnome.findByPk(characterData.class_id);        
-
-        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
-        res.json({ enemy: randomEnemy, character: characterData, gnomeClass: classData });
+        randomCards = getCards(deck);
+        console.log(randomCards);
+        res.render('game', { cards: randomCards });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+//TODO: add route for selected card when it's clicked
 
 router.get('/test-error', (req, res, next) => {
     try {
