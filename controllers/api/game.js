@@ -6,18 +6,48 @@ const { generateUniqueId } = require('../../utils/uniequeid');
 let randomCards;
 let deck = [];
 
+// router.get('/', async (req, res) => {
+//     try {
+//         const allEnemies = await Enemies.findAll();
+//         const randomIndex = Math.floor(Math.random() * allEnemies.length);
+//         const randomEnemy = allEnemies[randomIndex];
+
+//         //TODO: add below back in once session is working
+//         // const characterData = await Character.findByPk(req.session.characterId);
+//         const characterData = await Character.findByPk(1);
+//         const classData = await Gnome.findByPk(characterData.class_id); 
+        
+//         //TODO: plugged in temp class_id and character id. Need to re-link.
+//         const deckData = await Deck.findAll({
+//             where: {
+//                 class_id: characterData.class_id
+//             }
+//         });
+
+//         deck = deckData.map((deck) => deck.get({ plain: true }));
+//         randomCards = getCards(deck);
+
+//         console.log(randomCards); // Log randomCards to the console
+
+//         res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
+
+//         //sending data to frontend
+//         res.json({ enemy: randomEnemy, character: characterData, gnomeClass: classData });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
+
 router.get('/', async (req, res) => {
     try {
         const allEnemies = await Enemies.findAll();
         const randomIndex = Math.floor(Math.random() * allEnemies.length);
         const randomEnemy = allEnemies[randomIndex];
 
-        //TODO: add below back in once session is working
-        // const characterData = await Character.findByPk(req.session.characterId);
         const characterData = await Character.findByPk(1);
         const classData = await Gnome.findByPk(characterData.class_id); 
         
-        //TODO: plugged in temp class_id and character id. Need to re-link.
         const deckData = await Deck.findAll({
             where: {
                 class_id: characterData.class_id
@@ -28,11 +58,12 @@ router.get('/', async (req, res) => {
         randomCards = getCards(deck);
 
         console.log(randomCards); // Log randomCards to the console
+        console.log(characterData);
+        console.log(randomEnemy);
+        console.log(classData);
 
-        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData });
+        res.render('game', { enemy: randomEnemy, cards: randomCards, character: characterData, class: classData });
 
-        //sending data to frontend
-        res.json({ enemy: randomEnemy, character: characterData, gnomeClass: classData });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
