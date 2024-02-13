@@ -22,13 +22,11 @@ router.get('/', async (req, res) => {
 
 router.get('/game/:id', async (req, res) => {
   try {
-    debugger
     // Get all classes from Gnome model and display on the homepage
     // This pulls in all data from the Gnome model, while excluding the array of card ids as this likel
     const gameData = await SavedGame.findByPk(req.params.id).then(model => model.get({ plain: true }));
     const characterData = await Character.findByPk(gameData.character_id).then(model => model.get({ plain: true }));
     const classData = await Gnome.findByPk(characterData.class_id).then(model => model.get({ plain: true })); 
-    debugger
     const enemyData = await Enemies.findByPk(gameData.enemy_id).then(model => model.get({ plain: true }))
     const deckData = await Deck.findAll({
       where: {
@@ -44,10 +42,8 @@ router.get('/game/:id', async (req, res) => {
     // console.log(randomEnemy);
     // console.log('coming back on the client side', data)
 
-    debugger
     res.render('game', { class: classData, character: characterData, enemy: enemyData, cards: randomCards, game: gameData } );
   } catch (err) {
-    debugger
     res.status(500).json(err);
   }
 });

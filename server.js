@@ -36,6 +36,16 @@ app.get('/public/css/style.css', (req, res) => {
   res.sendFile(__dirname + '/public/css/style.css');
 });
 
+app.get('/public/win.html', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(__dirname + '/public/win.html');
+});
+
+app.get('/public/dead.html', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.sendFile(__dirname + '/public/dead.html');
+});
+
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {

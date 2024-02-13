@@ -96,8 +96,6 @@ router.post('/:id/attack', async (req, res) => {
 
     await model.save();
 
-    const gameThree = await model.get({ plain: true });
-    debugger
     res.status(200).send('ok');
 });
 
