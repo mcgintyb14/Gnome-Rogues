@@ -1,5 +1,5 @@
 # Gnome-Rogues
-Project Link:
+Project Link: https://gnome-rogues-90a0baf68228.herokuapp.com/
 
 ## Description
 This project is a web-based game where players can choose their gnome class and engage in battles with various enemies. Built with Express.js and Handlebars, it offers a dynamic and interactive gaming experience.
