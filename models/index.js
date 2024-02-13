@@ -5,7 +5,7 @@ const Gnome = require('./classes/Gnome');
 const Card = require('./Card');
 const Hand = require('./Hand');
 const Deck = require('./Deck');
-const SavedGame = require('./SavedGame');
+const SavedGame = require('./testing');
 
 User.hasOne(Character, {});
 
