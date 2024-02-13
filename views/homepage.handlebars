@@ -3,7 +3,7 @@
     <div class="gnome-classes-container">
         {{#each gnomes as |gnome|}}
             <button class="choose-class-button"
-                onclick="location.href='/api/game/loading?class_id={{gnome.id}}'">
+                onclick="location.href='/api/game/loading/?class_id={{gnome.id}}'">
                 <div class="gnome-class-card">
                     <img src="{{gnome.Image}}" alt="{{gnome.class_name}}"
                         class="gnome-class-image">

@@ -5,6 +5,7 @@ const Gnome = require('./classes/Gnome');
 const Card = require('./Card');
 const Hand = require('./Hand');
 const Deck = require('./Deck');
+const SavedGame = require('./Savedgame');
 
 User.hasOne(Character, {});
 
@@ -16,4 +17,4 @@ Deck.hasMany(Card, {});
 
 
 
-module.exports = { User, Character, Enemies, Gnome, Card, Hand, Deck };
+module.exports = { User, Character, Enemies, Gnome, Card, Hand, Deck, SavedGame };
