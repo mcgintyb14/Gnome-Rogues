@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // We are pulling in all of the models 
 const { User, Character, Enemies, Gnome, Card, Hand, Deck, SavedGame } = require('../models');
-const { getCards } = require('../utils/helpers');
+const { getCards } = require('../utils');
 
 router.get('/', async (req, res) => {
   try {
@@ -42,8 +42,7 @@ router.get('/game/:id', async (req, res) => {
     // Serialize data so the template can read it and render the appropriate data on the homepage=
     // console.log(randomEnemy);
     // console.log('coming back on the client side', data)
-    debugger
-    res.render('game', { class: classData, character: characterData, enemy: enemyData, cards: randomCards } );
+    res.render('game', { class: classData, character: characterData, enemy: enemyData, cards: randomCards, game: gameData } );
   } catch (err) {
     res.status(500).json(err);
   }

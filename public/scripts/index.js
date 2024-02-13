@@ -56,7 +56,7 @@ const selectCard = async (cardData) => {
                 cardData.damage,
                 cardData.dodge
             )
-        console.log(playedCard);
+        console.log(playedCard)
         return playedCard;
         } else {
             return null;
@@ -64,20 +64,13 @@ const selectCard = async (cardData) => {
 
 }
 
-const getCharData = async () => {
+const getCharData = async ({ characterData, classData, enemyData }) => {
+    debugger
     //may need to change this route before deploy
-    fetch(`http://localhost:3001/api/game/:id`)
-    .then(response => {
-        if (!response.ok) {
-        throw new Error('Network error');
-        }
-        return response.json();
-    })
-    .then(data => {
 
-        const characterData = data.character;
-        const enemyData = data.enemy;
-        const classData = data.gnomeClass;
+        // const characterData = data.character;
+        // const enemyData = data.enemy;
+        // const classData = data.gnomeClass;
 
         if (characterData && classData) {
             gameCharacter = new Character(
@@ -109,10 +102,6 @@ const getCharData = async () => {
         } else {
             console.log('Enemy data is null');
         }
-    })
-    .catch(error => {
-        console.error(error);
-    });
 }
 
 //function to check if alive
@@ -184,7 +173,7 @@ const startGame = () => {
     // playerTurn();
 }
 
-startGame();
+// startGame();
 
 //at end of round, send any relevant game data to the database
 

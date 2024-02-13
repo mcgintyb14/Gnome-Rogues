@@ -2,7 +2,7 @@
     <div class="enemies-container">
         <img src="{{enemy.Image}}" alt="Enemy Image">
         <h2>{{enemy.name}}</h2>
-        <p>{{enemy.name}}'s' HP: {{enemy.hp}}</p>
+        <p>{{enemy.name}}'s' HP: {{game.enemy_current_hp}}</p>
     </div>
 
     <div class="character-container">
@@ -27,35 +27,33 @@
     <script src="/scripts/index.js"></script>
 
     <script>
-        // Get the form element
-        const handCards = document.getElementById('card-container');
-        debugger
-        //localStorage.setItem("gameId", gameId);
         // Add event listener for form submission
+        const handCards = document.getElementById('card-container');
         handCards.addEventListener('click', async function (event) {
+            const gameId = window.location.pathname.split('/')[location.pathname.split('/').length - 1];
+
             event.preventDefault(); // Prevent default form submission behavior
             let chosenCard = event.target.parentElement
+            
             if (chosenCard.classList.contains('card')) {
-                    let cardId = chosenCard.id;
-                    chosenCard = chosenCard.children
-                let playedCardData = {
-                    id: cardId,
-                    name: chosenCard[0].textContent,
-                    damage: chosenCard[1].textContent.split(": ")[1],
-                    dodge: chosenCard[2].textContent.split(": ")[1]
-                }
-                playerTurn(playedCardData);
-            } else if (event.target.classList.contains('card')) {
-                chosenCard = event.target
                 let cardId = chosenCard.id;
                 chosenCard = chosenCard.children
-                let playedCardData = {
+                
+                const playedCardData = {
                     id: cardId,
                     name: chosenCard[0].textContent,
                     damage: chosenCard[1].textContent.split(": ")[1],
                     dodge: chosenCard[2].textContent.split(": ")[1]
                 }
-                playerTurn(playedCardData);
+
+                const response = await fetch(`/api/game/${gameId}/attack`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(playedCardData)
+                });
+                localStorage.setItem('gameId', gameId);
             }
         })
     </script>
