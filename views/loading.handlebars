@@ -41,7 +41,7 @@
                 });
                 // Check if the response is ok
                 const data = await response.json();
-                if (response.ok) {
+                if (data.gameId) {
                     // Redirect the user to the loading-character page
                     window.location.href = `/game/${data.gameId}`;
                 } else {

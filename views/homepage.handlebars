@@ -20,3 +20,7 @@
     </div>
 </main>
 
+ <script>
+        const gameId = localStorage.getItem('gameId');
+        if (gameId) { location.href = `/game/${gameId}` }
+    </script>
