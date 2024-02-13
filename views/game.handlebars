@@ -16,21 +16,45 @@
 
   <div class="card-container" id="card-container">
         {{#each cards as |card|}}
-        <div class="card">
+        <div class="card" id="{{card.id}}">
             <h3>{{card.name}}</h3>
             <p>Damage: {{card.damage}}</p>
             <p>Dodge: {{card.dodge}}</p>
         </div>
         {{/each}}
     </div>
+    <script src="/scripts/index.js"></script>
     <script>
         // Get the form element
-        const selectedCard = document.getElementById('card-container');
+        const handCards = document.getElementById('card-container');
 
         // Add event listener for form submission
-        selectedCard.addEventListener('click', async function (event) {
+        handCards.addEventListener('click', async function (event) {
             event.preventDefault(); // Prevent default form submission behavior
-            
+            let chosenCard = event.target.parentElement
+            if (chosenCard.classList.contains('card')) {
+                    let cardId = chosenCard.id;
+                    chosenCard = chosenCard.children
+                let playedCardData = {
+                    id: cardId,
+                    name: chosenCard[0].textContent,
+                    attack: chosenCard[1].textContent.split(": ")[1],
+                    dodge: chosenCard[2].textContent.split(": ")[1]
+                }
+                startGame(playedCardData);
+            } else if (event.target.classList.contains('card')) {
+                chosenCard = event.target
+                let cardId = chosenCard.id;
+                chosenCard = chosenCard.children
+                let playedCardData = {
+                    id: cardId,
+                    name: chosenCard[0].textContent,
+                    attack: chosenCard[1].textContent.split(": ")[1],
+                    dodge: chosenCard[2].textContent.split(": ")[1]
+                }
+                startGame(playedCardData);
+            }
         })
     </script>
+
 </main>

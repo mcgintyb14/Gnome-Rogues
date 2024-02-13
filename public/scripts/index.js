@@ -46,16 +46,17 @@ class Card {
 
 //TODO:
 //add in endpoint to game.js route
-const selectCard = async () => {
-    fetch('http://localhost:3001/api/game/selectCard')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch selected card');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const cardData = data.card;
+const selectCard = async (cardData) => {
+    // fetch('http://localhost:3001/api/game/selectCard')
+    // //add in method post
+    // .then(response => {
+    //     if (!response.ok) {
+    //         throw new Error('Failed to fetch selected card');
+    //     }
+    //     return response.json();
+    // })
+    // .then(data => {
+        // const cardData = data.card;
         if(cardData) {
             playedCard = new Card(
                 cardData.id,
@@ -68,11 +69,11 @@ const selectCard = async () => {
         } else {
             return null;
         }
-    })
-    .catch(error => {
-        console.error('Error fetching selected card:', error);
-        throw error;
-    });
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching selected card:', error);
+    //     throw error;
+    // });
 }
 
 const getCharData = () => {
@@ -164,14 +165,15 @@ const charAttack = () => {
 }
 
 //playerTurn is performed only when a card is selected
-const playerTurn = async () => {
-    let selectedCard = await selectCard();
+const playerTurn = async (cardData) => {
+    let selectedCard = await selectCard(cardData);
     charAttack(selectedCard);
 }
 
 const enemyTurn = () => {
     enemyAttack();
     newCardSet();
+    //TODO: add server call to update your health and enemy health
 }
 
 const newCardSet = () => {
@@ -188,13 +190,13 @@ const newCardSet = () => {
 }
 
 
-const startGame = () => {
+const startGame = (cardData) => {
     getCharData()
     console.log("Game started.");
-    playerTurn();
+    playerTurn(cardData);
 }
 
-startGame();
+// startGame();
 
 //at end of round, send any relevant game data to the database
 
