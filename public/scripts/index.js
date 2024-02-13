@@ -46,17 +46,9 @@ class Card {
 
 //TODO:
 //add in endpoint to game.js route
+
+//this becomes playturn
 const selectCard = async (cardData) => {
-    // fetch('http://localhost:3001/api/game/selectCard')
-    // //add in method post
-    // .then(response => {
-    //     if (!response.ok) {
-    //         throw new Error('Failed to fetch selected card');
-    //     }
-    //     return response.json();
-    // })
-    // .then(data => {
-        // const cardData = data.card;
         if(cardData) {
             playedCard = new Card(
                 cardData.id,
@@ -69,16 +61,12 @@ const selectCard = async (cardData) => {
         } else {
             return null;
         }
-    // })
-    // .catch(error => {
-    //     console.error('Error fetching selected card:', error);
-    //     throw error;
-    // });
+
 }
 
-const getCharData = () => {
+const getCharData = async () => {
     //may need to change this route before deploy
-    fetch(`http://localhost:3001/api/game/`)
+    fetch(`http://localhost:3001/api/game/:id`)
     .then(response => {
         if (!response.ok) {
         throw new Error('Network error');
@@ -165,8 +153,8 @@ const charAttack = () => {
 }
 
 //playerTurn is performed only when a card is selected
-const playerTurn = async (cardData) => {
-    let selectedCard = await selectCard(cardData);
+const playerTurn = async () => {
+    let selectedCard = await selectCard();
     charAttack(selectedCard);
 }
 
@@ -190,13 +178,13 @@ const newCardSet = () => {
 }
 
 
-const startGame = (cardData) => {
+const startGame = () => {
     getCharData()
     console.log("Game started.");
-    playerTurn(cardData);
+    // playerTurn();
 }
 
-// startGame();
+startGame();
 
 //at end of round, send any relevant game data to the database
 
