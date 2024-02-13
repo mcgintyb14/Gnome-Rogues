@@ -34,6 +34,13 @@ main {
     gap: 20px;
 }
 
+.background-container {
+    background-color: rgb(186, 222, 235);
+}
+.game-interface {
+    background-color: lightgrey;
+}
+
 .choose-class-button {
     background: none;
     border: none;
@@ -66,10 +73,57 @@ main {
 .gnome-class-attributes {
     padding: 15px;
     text-align: left;
+    font-size: 17px;
+    text-align: center;
 }
 
 .gnome-class-attributes p {
     margin: 10px 0;
+}
+
+.character-and-enemy-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 120%;
+    flex-wrap: wrap;
+}
+
+.healthpoints {
+    font-size: 22px;
+    font-weight: bolder;
+}
+
+.character-container, 
+.enemies-container {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.character-image,
+.Enemy-image {
+    width: 400px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.card {
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-top: 30px;
+    border: solid black 3px;
+    width: 200px;
+    background-color: lightblue;
+}
+
+.card:hover {
+    border: solid yellow 2px;
+    background-image: linear-gradient(to bottom, grey, blue);
+    color: white
 }
 
 .character-container {

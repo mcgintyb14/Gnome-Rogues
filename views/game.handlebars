@@ -1,19 +1,18 @@
 <main class="game-interface">
-    <div class="enemies-container">
-        <img src="{{enemy.Image}}" alt="Enemy Image">
-        <h2>{{enemy.name}}</h2>
-        <p>{{enemy.name}}'s' HP: {{game.enemy_current_hp}}</p>
+    <div class="character-and-enemy-container">
+        <div class="character-container">
+            <img src="{{class.Image}}" alt="Class Image"
+                class="character-image">
+            <h2>{{character.name}}</h2>
+            <p class="healthpoints">{{character.name}}'s HP: {{character.current_hp}}</p>
+        </div>
+        <div class="enemies-container">
+            <img src="{{enemy.Image}}" alt="Enemy Image" class="Enemy-image">
+            <h2>{{enemy.name}}</h2>
+            <p class="healthpoints">{{enemy.name}}'s' HP: {{game.enemy_current_hp}}</p>
+        </div>
     </div>
-
-    <div class="character-container">
-        <img src="{{class.Image}}" alt="Class Image" class="character-image">
-        <h2>{{character.name}}</h2>
-        <p>{{character.name}}'s HP: {{character.current_hp}}</p>
-    </div>
-
-    <p> Writing random stuff to test</p>
-
-  <div class="card-container" id="card-container">
+    <div class="card-container" id="card-container">
         {{#each cards as |card|}}
         <div class="card" id="{{card.id}}">
             <h3>{{card.name}}</h3>
@@ -22,7 +21,6 @@
         </div>
         {{/each}}
     </div>
-
 
     <script src="/scripts/index.js"></script>
 
