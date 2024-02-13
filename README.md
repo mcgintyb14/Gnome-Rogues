@@ -15,7 +15,7 @@ This project is a web-based game where players can choose their gnome class and 
 To run this project, you will need Node.js and npm installed on your system.
 
 1. Clone the repository:
-   git clone https://github.com/mcgintyb14/gnome-rogues.git
+   git clone https://github.com/mcgintyb14/gnome-rogues.git 
 2. Navigate to the project directory:
    cd gnome-rogues
 3. Install dependencies:
