@@ -80,6 +80,11 @@ router.post('/:id/attack', async (req, res) => {
         res.status(200).send('You have Slayed the gnenemy!')
     }
     res.status(200).send('ok')
+
+    //TODO: calaculate enemy attack on player
+    //decriment play's health
+    //check if player still alive
+    
 });
 
 router.get('/test-error', (req, res, next) => {
