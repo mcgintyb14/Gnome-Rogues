@@ -4,7 +4,7 @@
             <img src="{{class.Image}}" alt="Class Image"
                 class="character-image">
             <h2>{{character.name}}</h2>
-            <p class="healthpoints">{{character.name}}'s HP: {{character.current_hp}}</p>
+            <p class="healthpoints">{{character.name}}'s HP: {{game.character_current_hp}}</p>
         </div>
         <div class="enemies-container">
             <img src="{{enemy.Image}}" alt="Enemy Image" class="Enemy-image">
@@ -21,6 +21,8 @@
         </div>
         {{/each}}
     </div>
+
+    <div>{{game.game_message}}</div>
 
     <script src="/scripts/index.js"></script>
 
@@ -50,8 +52,14 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(playedCardData)
-                });
-                localStorage.setItem('gameId', gameId);
+                }).then(() => {
+                    debugger
+                    localStorage.setItem('gameId', gameId);
+                    window.location.reload();
+                }).catch((err) => {
+                    debugger
+                    console.error('something broke when trying to attack', err.message)
+                })
             }
         })
     </script>
