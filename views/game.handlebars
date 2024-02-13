@@ -27,7 +27,6 @@
     <script src="/scripts/index.js"></script>
 
     <script>        
-        debugger
 
         const remainingCharacterHealth = document.getElementById('character-healthpoints').textContent.split(': ')[document.getElementById('character-healthpoints').textContent.split(': ').length - 1]
         const remainingEnemyHealth = document.getElementById('enemy-healthpoints').textContent.split(': ')[document.getElementById('enemy-healthpoints').textContent.split(': ').length - 1]
@@ -37,6 +36,8 @@
         } else if (parseInt(remainingCharacterHealth, 10) <= 0) {
             window.location.href = '/public/dead.html'
         } 
+
+       
 
         // Add event listener for form submission
         const handCards = document.getElementById('card-container');
@@ -65,6 +66,7 @@
                     body: JSON.stringify(playedCardData)
                 }).then(() => {
                     localStorage.setItem('gameId', gameId);
+                    window.location.reload();
                 }).catch((err) => {
                     console.error('something broke when trying to attack', err.message)
                 })
