@@ -8,7 +8,7 @@
     <div class="character-container">
         <img src="{{class.Image}}" alt="Class Image" class="character-image">
         <h2>{{character.name}}</h2>
-        <p>{{character.name}}'s HP: {{character.current_hp}}</p>
+        <p>{{character.name}}'s HP: {{game.character_current_hp}}</p>
     </div>
 
     <p> Writing random stuff to test</p>
@@ -52,8 +52,14 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(playedCardData)
-                });
-                localStorage.setItem('gameId', gameId);
+                }).then(() => {
+                    debugger
+                    localStorage.setItem('gameId', gameId);
+                    window.location.reload();
+                }).catch((err) => {
+                    debugger
+                    console.error('something broke when trying to attack', err.message)
+                })
             }
         })
     </script>

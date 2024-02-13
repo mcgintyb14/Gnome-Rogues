@@ -56,7 +56,6 @@ const selectCard = async (cardData) => {
                 cardData.damage,
                 cardData.dodge
             )
-        console.log(playedCard)
         return playedCard;
         } else {
             return null;
@@ -65,7 +64,6 @@ const selectCard = async (cardData) => {
 }
 
 const getCharData = async ({ characterData, classData, enemyData }) => {
-    debugger
     //may need to change this route before deploy
 
         // const characterData = data.character;

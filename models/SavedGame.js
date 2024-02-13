@@ -29,7 +29,10 @@ SavedGame.init(
         },
         enemy_current_hp: {
             type: DataTypes.INTEGER,
-        }
+        },
+        game_message: {
+            type: DataTypes.STRING,
+        },
     },
     {
         sequelize,

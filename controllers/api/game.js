@@ -29,15 +29,16 @@ router.post('/submit-character-name/:class_id', upload.none(), async (req, res) 
         const characterData = createdCharacter.get({plain: true});
         const classData = await Gnome.findByPk(characterData.class_id); 
         const allEnemies = await Enemies.findAll();
-        const randomIndex = Math.floor(Math.random() * allEnemies.length);
-        const enemyData = allEnemies[randomIndex];
+
+        const randomNumber = Math.floor(Math.random() * allEnemies.length)
+        const enemyData = allEnemies[randomNumber];
         
         const savedGame = await SavedGame.create({
             character_id: characterData.id,
             character_name: characterData.name,
             class_id: characterData.class_id,
             character_current_hp: classData.MaxHP,
-            enemy_id: randomIndex,
+            enemy_id: enemyData.id,
             enemy_current_hp: enemyData.hp
           });
     
@@ -71,20 +72,33 @@ router.post('/:id/attack', async (req, res) => {
     const gameId = req.params.id;
     const model = await SavedGame.findByPk(gameId);
     const game = await model.get({ plain: true });
-    const remainingHealth = game.enemy_current_hp - card.damage;
-    model.enemy_current_hp = remainingHealth;
-    await model.save();
-    const gameAgain = await model.get({ plain: true });
+    const enemy = await Enemies.findByPk(game.enemy_id);
 
-    if (remainingHealth <= 0) {
-        res.status(200).send('You have Slayed the gnenemy!')
+    enemyDamage = enemy.attack;
+    const enemyRemainingHealth = game.enemy_current_hp - card.damage;
+    const characterRemainingHealth = game.character_current_hp - enemyDamage
+
+    let gameMessage;
+    if (enemyRemainingHealth <= 0) {
+        gameMessage = 'You have Slayed the gnenemy!';
     }
-    res.status(200).send('ok')
 
-    //TODO: calaculate enemy attack on player
-    //decriment play's health
-    //check if player still alive
-    
+    if (characterRemainingHealth < 0) {
+        gameMessage = 'dun dun dun... dead.';
+    }
+
+
+    model.set({
+        character_current_hp: characterRemainingHealth,
+        enemy_current_hp: enemyRemainingHealth,
+        game_message: gameMessage,
+    })
+
+    await model.save();
+
+    const gameThree = await model.get({ plain: true });
+    debugger
+    res.status(200).send('ok');
 });
 
 router.get('/test-error', (req, res, next) => {
